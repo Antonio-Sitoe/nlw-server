@@ -1,14 +1,21 @@
 {
   "scripts": {
-    "dev": "tsx watch src/app.ts"
+    "dev": "tsx watch src/app.ts",
+    "generate": "drizzle-kit generate",
+    "migrate": "drizzle-kit migrate",
+    "studio": "drizzle-kit studio"
   },
   "dependencies": {
     "@fastify/cors": "^11.1.0",
     "@fastify/swagger": "^9.5.2",
     "@fastify/swagger-ui": "^5.2.3",
     "@types/node": "^24.7.2",
+    "drizzle-kit": "^0.31.5",
+    "drizzle-orm": "^0.44.6",
     "fastify": "^5.6.1",
     "fastify-type-provider-zod": "^6.0.0",
+    "ioredis": "^5.8.1",
+    "postgres": "^3.4.7",
     "tsx": "^4.20.6",
     "typescript": "^5.9.3",
     "zod": "^4.1.12"
