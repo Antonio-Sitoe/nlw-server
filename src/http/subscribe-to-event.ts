@@ -1,5 +1,11 @@
 import { FastifyInstance } from 'fastify'
 import { z } from 'zod'
+import { CreateSubscribeToEvent } from '../controllers/subscribe-to-event'
+
+const subscribeToEventSchema = z.object({
+  name: z.string(),
+  email: z.email(),
+})
 
 export async function subscribeToEvent(app: FastifyInstance) {
   app.post(
@@ -8,10 +14,7 @@ export async function subscribeToEvent(app: FastifyInstance) {
       schema: {
         summary: 'Subscribe Person to Event',
         tags: ['Subscription'],
-        body: z.object({
-          name: z.string(),
-          email: z.email(),
-        }),
+        body: subscribeToEventSchema,
         response: {
           200: z.object({
             message: z.string(),
@@ -21,13 +24,14 @@ export async function subscribeToEvent(app: FastifyInstance) {
         },
       },
     },
-    (request, reply) => {
-      const { email, name } = request.body
-      console.log(request.body)
-      return reply.status(200).send({
-        message: 'Hello World',
+    async (request, reply) => {
+      const { email, name } = subscribeToEventSchema.parse(request.body)
+      const { subscriberId } = await CreateSubscribeToEvent({
         email,
         name,
+      })
+      return reply.status(200).send({
+        subscriberId,
       })
     }
   )

@@ -1,7 +1,4 @@
 import fastify from 'fastify'
-import { fastifyCors } from '@fastify/cors'
-import { fastifySwagger } from '@fastify/swagger'
-import { fastifySwaggerUi } from '@fastify/swagger-ui'
 
 import {
   validatorCompiler,
@@ -9,8 +6,13 @@ import {
   ZodTypeProvider,
   jsonSchemaTransform,
 } from 'fastify-type-provider-zod'
-import { subscribeToEvent } from './http/subscribe-to-event'
+
 import { ENV } from './lib/env'
+import { fastifyCors } from '@fastify/cors'
+import { fastifySwagger } from '@fastify/swagger'
+import { fastifySwaggerUi } from '@fastify/swagger-ui'
+import { subscribeToEvent } from './http/subscribe-to-event'
+import { accessInviteLinkRoute } from './http/access-invite-link'
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
 app.setValidatorCompiler(validatorCompiler)
@@ -37,6 +39,7 @@ app.register(fastifySwaggerUi, {
 })
 
 app.register(subscribeToEvent)
+app.register(accessInviteLinkRoute)
 
 app
   .listen({
