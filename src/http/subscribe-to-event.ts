@@ -5,6 +5,7 @@ import { CreateSubscribeToEvent } from '../controllers/subscribe-to-event'
 const subscribeToEventSchema = z.object({
   name: z.string(),
   email: z.email(),
+  referrerId: z.string().nullish(),
 })
 
 export async function subscribeToEvent(app: FastifyInstance) {
@@ -25,10 +26,13 @@ export async function subscribeToEvent(app: FastifyInstance) {
       },
     },
     async (request, reply) => {
-      const { email, name } = subscribeToEventSchema.parse(request.body)
+      const { email, name, referrerId } = subscribeToEventSchema.parse(
+        request.body
+      )
       const { subscriberId } = await CreateSubscribeToEvent({
         email,
         name,
+        referrerId,
       })
       return reply.status(200).send({
         subscriberId,
