@@ -1,6 +1,7 @@
 {
   "scripts": {
     "dev": "tsx watch src/app.ts",
+    "build": "tsup-node",
     "generate": "drizzle-kit generate",
     "migrate": "drizzle-kit migrate",
     "studio": "drizzle-kit studio"
@@ -16,6 +17,7 @@
     "fastify-type-provider-zod": "^6.0.0",
     "ioredis": "^5.8.1",
     "postgres": "^3.4.7",
+    "tsup": "^8.5.0",
     "tsx": "^4.20.6",
     "typescript": "^5.9.3",
     "zod": "^4.1.12"
